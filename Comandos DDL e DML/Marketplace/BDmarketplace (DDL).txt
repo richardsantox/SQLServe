@@ -1,0 +1,83 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Tempo de geração: 20-Abr-2022 às 15:55
+-- Versão do servidor: 10.4.19-MariaDB
+-- versão do PHP: 8.0.7
+ 
+
+CREATE DATABASE BD_Marketplace
+USE BD_Marketplace
+
+
+CREATE TABLE `categoria` (
+  `Id_Categoria` int(11) NOT NULL,
+  `descricao` varchar(100) DEFAULT NULL
+) 
+
+CREATE TABLE `clientes` (
+  `Id_Cliente` int(11) NOT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  `cpf` int(11) DEFAULT NULL,
+  `dataNasc` date DEFAULT NULL,
+  `telefone` int(11) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL
+)
+
+CREATE TABLE `formadepagamento` (
+  `Id_Pag` int(11) NOT NULL,
+  `nomePag` varchar(50) DEFAULT NULL
+) 
+
+
+CREATE TABLE `produto` (
+  `Id_Produto` int(11) NOT NULL,
+  `nomeP` varchar(100) DEFAULT NULL,
+  `marcaP` varchar(50) DEFAULT NULL,
+  `descricaoP` varchar(200) DEFAULT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  `_Fornecedor` int(11) NOT NULL,
+  `FK2_Categoria` int(11) NOT NULL
+) 
+
+
+CREATE TABLE `venda` (
+  `Id_Venda` int(11) NOT NULL,
+  `totalV` int(11) DEFAULT NULL,
+  `dataV` date DEFAULT NULL,
+  `FK_Pag` int(11) NOT NULL,
+  `FK_Cliente` int(11) NOT NULL,
+  `FK_Produto` int(11) NOT NULL
+) 
+
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`Id_Categoria`);
+
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`Id_Cliente`);
+
+ALTER TABLE `formadepagamento`
+  ADD PRIMARY KEY (`Id_Pag`);
+
+ALTER TABLE `produto`
+  ADD PRIMARY KEY (`Id_Produto`),
+  ADD KEY `FK2_Categoria` (`FK2_Categoria`);
+
+ALTER TABLE `venda`
+  ADD PRIMARY KEY (`Id_Venda`),
+  ADD KEY `FK_Pag` (`FK_Pag`),
+  ADD KEY `FK_Cliente` (`FK_Cliente`),
+  ADD KEY `FK_Produto` (`FK_Produto`);
+
+ALTER TABLE `produto`
+  ADD CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`_Fornecedor`) REFERENCES `fornecedor` (`Id_Fornecedor`),
+  ADD CONSTRAINT `produto_ibfk_2` FOREIGN KEY (`FK2_Categoria`) REFERENCES `categoria` (`Id_Categoria`);
+
+
+ALTER TABLE `venda`
+  ADD CONSTRAINT `venda_ibfk_1` FOREIGN KEY (`FK_Pag`) REFERENCES `formadepagamento` (`Id_Pag`),
+  ADD CONSTRAINT `venda_ibfk_2` FOREIGN KEY (`FK_Cliente`) REFERENCES `clientes` (`Id_Cliente`),
+  ADD CONSTRAINT `venda_ibfk_3` FOREIGN KEY (`FK_Produto`) REFERENCES `produto` (`Id_Produto`);
+

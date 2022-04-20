@@ -1,0 +1,15 @@
+INSERT INTO usuarios
+VALUES
+(1, 'richard', '123456', 'richard@email.com'),
+(2, 'santos', '123456', 'santos@email.com'),
+(3, 'pereira', '123456', 'pereira@email.com');
+
+INSERT INTO postagens
+VALUES
+(1, 'bom dia pra todos', 'Bom dia', 2),
+(2, 'entreim no grupo para conversamos', 'Ola vamos dialógar', 3);
+
+INSERT INTO comentarios
+VALUES
+(1, 'oi, vamos conversar!', 2),
+(2, 'Bom dias', 3);

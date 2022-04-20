@@ -1,0 +1,40 @@
+CREATE DATABASE BD_RedeSocial
+USE BD_RedeSocial
+
+CREATE TABLE `comentarios` (
+  `Id_comentraio` int(11) NOT NULL,
+  `textoComentario` varchar(200) DEFAULT NULL,
+  `FK_UsuarioComent` int(11) DEFAULT NULL
+) 
+
+
+CREATE TABLE `postagens` (
+  `Id_Postagem` int(11) NOT NULL,
+  `conteudo` varchar(200) DEFAULT NULL,
+  `titulo` varchar(200) DEFAULT NULL,
+  `FK_UsuariosPost` int(11) NOT NULL
+) 
+
+CREATE TABLE `usuarios` (
+  `Id_Usuario` int(11) NOT NULL,
+  `nomeUser` varchar(50) DEFAULT NULL,
+  `senhaUser` varchar(20) DEFAULT NULL,
+  `emailUser` varchar(50) DEFAULT NULL
+) 
+
+ALTER TABLE `comentarios`
+  ADD PRIMARY KEY (`Id_comentraio`),
+  ADD KEY `FK_UsuarioComent` (`FK_UsuarioComent`);
+
+ALTER TABLE `postagens`
+  ADD PRIMARY KEY (`Id_Postagem`),
+  ADD KEY `FK_UsuariosPost` (`FK_UsuariosPost`);
+
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`Id_Usuario`);
+
+ALTER TABLE `comentarios`
+  ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`FK_UsuarioComent`) REFERENCES `usuarios` (`Id_Usuario`);
+
+ALTER TABLE `postagens`
+  ADD CONSTRAINT `postagens_ibfk_1` FOREIGN KEY (`FK_UsuariosPost`) REFERENCES `usuarios` (`Id_Usuario`);

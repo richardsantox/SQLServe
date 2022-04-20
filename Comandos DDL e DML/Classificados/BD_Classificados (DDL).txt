@@ -1,0 +1,44 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Tempo de geração: 20-Abr-2022 às 15:15
+-- Versão do servidor: 10.4.19-MariaDB
+-- versão do PHP: 8.0.7
+
+CREATE DATABASE Classificados;
+USE Classificados;
+
+CREATE TABLE `anuncio` (
+  `Id_Anuncio` int(11) NOT NULL,
+  `tituloAnuncio` varchar(100) NOT NULL,
+  `descricao` varchar(200) NOT NULL,
+  `contato` varchar(20) NOT NULL,
+  `data` date NOT NULL,
+  `FK_User` int(11) NOT NULL
+);
+
+
+CREATE TABLE `users` (
+  `Id_User` int(11) NOT NULL,
+  `nomeUser` varchar(50) DEFAULT NULL,
+  `senhaUser` varchar(20) DEFAULT NULL,
+  `emailUser` varchar(50) DEFAULT NULL,
+  `enderecoUser` varchar(100) DEFAULT NULL,
+  `tipoConta` varchar(15) NOT NULL
+);
+
+
+ALTER TABLE `anuncio`
+  ADD PRIMARY KEY (`Id_Anuncio`),
+  ADD KEY `FK_User` (`FK_User`);
+
+
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`Id_User`);
+
+
+ALTER TABLE `anuncio`
+  ADD CONSTRAINT `anuncio_ibfk_1` FOREIGN KEY (`Id_Anuncio`) REFERENCES `users` (`Id_User`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `anuncio_ibfk_2` FOREIGN KEY (`FK_User`) REFERENCES `users` (`Id_User`);

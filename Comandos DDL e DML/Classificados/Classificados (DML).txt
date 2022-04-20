@@ -1,0 +1,10 @@
+INSERT INTO users
+VALUES
+(1, 'richard', '456123', 'richard@email.com', 'Rua america, 55', 'Comum'),
+(2, 'santos', '456123', 'santos@email.com', 'Rua brasil, 62', 'Comum'),
+(3, 'pereira', '456123', 'pereira@email.com', 'Rua alemanha, 123', 'Anunciante');
+
+INSERT INTO Anuncio
+VALUES
+(1, 'Casa na praia', 'casa na beira da praia', '11945682357', '20220804', '1'),
+(2, 'Casa na mata', 'casa na beira da mata', '1193665885', '20220307', '2');

@@ -1,0 +1,81 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Tempo de geração: 20-Abr-2022 às 16:21
+-- Versão do servidor: 10.4.19-MariaDB
+-- versão do PHP: 8.0.7
+
+
+
+CREATE DATABASE Marketplace
+USE Marketplace
+
+CREATE TABLE `categorias` (
+  `Id_Categ` int(11) NOT NULL,
+  `nomeCateg` varchar(200) DEFAULT NULL
+) 
+
+
+CREATE TABLE `clientes` (
+  `Id_Clintes` int(11) NOT NULL,
+  `nomeC` varchar(50) DEFAULT NULL,
+  `cpf` int(11) DEFAULT NULL,
+  `dataNasc` date DEFAULT NULL,
+  `telefone` int(11) DEFAULT NULL,
+  `emai` varchar(100) DEFAULT NULL
+) 
+
+
+CREATE TABLE `formadepagamento` (
+  `Id_Pag` int(11) NOT NULL,
+  `nomePag` varchar(50) DEFAULT NULL
+) 
+
+
+CREATE TABLE `produtos` (
+  `Id_Produto` int(11) NOT NULL,
+  `marca` varchar(50) DEFAULT NULL,
+  `descricao` varchar(100) DEFAULT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  `FK_Categoria` int(11) NOT NULL
+) 
+
+
+CREATE TABLE `venda` (
+  `Id_Venda` int(11) NOT NULL,
+  `totalV` double DEFAULT NULL,
+  `dataV` date DEFAULT NULL,
+  `FK_tipoPag` int(11) NOT NULL,
+  `FK_cliente` int(11) NOT NULL,
+  `FK_produto` int(11) NOT NULL
+) 
+
+
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`Id_Categ`);
+
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`Id_Clintes`);
+
+ALTER TABLE `formadepagamento`
+  ADD PRIMARY KEY (`Id_Pag`);
+
+ALTER TABLE `produtos`
+  ADD PRIMARY KEY (`Id_Produto`),
+  ADD KEY `FK_Categoria` (`FK_Categoria`);
+
+ALTER TABLE `venda`
+  ADD PRIMARY KEY (`Id_Venda`),
+  ADD KEY `FK_tipoPag` (`FK_tipoPag`),
+  ADD KEY `FK_cliente` (`FK_cliente`),
+  ADD KEY `FK_produto` (`FK_produto`);
+
+ALTER TABLE `produtos`
+  ADD CONSTRAINT `produtos_ibfk_1` FOREIGN KEY (`FK_Categoria`) REFERENCES `categorias` (`Id_Categ`);
+
+ALTER TABLE `venda`
+  ADD CONSTRAINT `venda_ibfk_1` FOREIGN KEY (`FK_tipoPag`) REFERENCES `formadepagamento` (`Id_Pag`),
+  ADD CONSTRAINT `venda_ibfk_2` FOREIGN KEY (`FK_cliente`) REFERENCES `clientes` (`Id_Clintes`),
+  ADD CONSTRAINT `venda_ibfk_3` FOREIGN KEY (`FK_produto`) REFERENCES `produtos` (`Id_Produto`);
